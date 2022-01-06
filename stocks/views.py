@@ -19,7 +19,7 @@ def ticker(request, tid):
     context['ticker'] = tid
     context['meta'] = get_meta_data(tid)
     context['price'] = get_meta_data2(tid)
-    #context['info'] = get_meta_data3(tid)
+    context['info'] = get_meta_data3(tid)
     context['yapi'] = get_meta_data4(tid)
     return render(request, 'ticker.html', context)
 
