@@ -1,4 +1,4 @@
 from django import forms
 
 class TickerForm(forms.Form):
-    ticker = forms.CharField(label='Ticker', max_length=5)
+    ticker = forms.CharField(label='', max_length=8)

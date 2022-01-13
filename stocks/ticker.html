@@ -1,42 +1,158 @@
 {% extends "base.html" %}
-{% block title %}{{ ticker }}{% endblock %}
+{% block title %}Dividends | {{ info.quoteType.shortName }}'s Dividend History{% endblock %}
 {% block content %}
+<div class="container">    
+    <div class="row mt-3">
+              <div class="col-lg-3 col-md-6 col-sm-6 ">
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-body" style="min-height: 124px;">
+                            <p class="fs-4 fw-bold text-center">{{ stats.statistics.dividends_and_splits.trailing_annual_dividend_rate }}</p>
+                            <p class="fs-6 text-center">Annual Dividend Rate (Trailing)</p>
+                          </div>
+                        </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6 ">
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-body" style="min-height: 124px;">
+                            <p class="fs-5 fw-bold text-center">{{ stats.statistics.dividends_and_splits.forward_annual_dividend_rate }}</p>
+                            <p class="fs-6 text-center"><strong>Annual Dividend Rate (Forward)</strong></p>
+                          </div>
+                        </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6 ">
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-body" style="min-height: 124px;">
+                            <p class="fs-4 fw-bold text-center">{{ stats.statistics.dividends_and_splits.payout_ratio }}</p>
+                            <p class="fs-6 text-center">Dividend Payout Ratio</p>
+                          </div>
+                        </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6 ">
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-body" style="min-height: 124px;">
+                            <p class="fs-4 fw-bold text-center">{{ stats.statistics.dividends_and_splits.5_year_average_dividend_yield }}</p>
+                            <p class="fs-6 text-center">Avg Dividend Yield (5-Year)</p>
+                          </div>
+                        </div>
+              </div>
+    </div>
+    <div class="row">
+              <div class="col-lg-6 col-md-8 col-sm-12 ">
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">{{ info2.name }}'s Dividend History (Quarterly)</div>
+                          <div class="card-body" style="min-height: 595px;">
+                            {{ dividend | safe}}
+                          </div>
+                        </div>            
+              </div>
+              <div class="col">
+                        <div class="card text-dark bg-light mb-3" style="max-height: 362px;">
+                          <div class="card-header">{{ info2.name }}'s Dividend Chart</div>
+                          <div class="card-body">
+                            <div class="chart">
+                              <canvas id="myChart"></canvas>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">{{ info2.name }}'s Market Details</div>
+                          <div class="card-body">
+                            <p class="card-text">Last Dividend Date: {{ stats.statistics.dividends_and_splits.dividend_date }}</p>
+                            <p class="card-text">Last Ex Dividend Date: {{ stats.statistics.dividends_and_splits.ex_dividend_date }}</p>
+                            <p class="card-text">Last Split Factor: {{ stats.statistics.dividends_and_splits.last_split_factor }}</p>
+                            <p class="card-text">Last Split Date: {{ stats.statistics.dividends_and_splits.last_split_date }}</p>
+                            <p class="card-text">Annual Dividend Yield: {{ stats.statistics.dividends_and_splits.trailing_annual_dividend_yield }} (T) & 
+                              {{ stats.statistics.dividends_and_splits.forward_annual_dividend_yield }} (F)
+                            </p>
+                          </div>
+                        </div>
 
-<div class="container" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; border-radius: 5px;">
-    <div class="row pt-3 pd-3">
-      <div class="col-sm-12 col-md-6 col-lg-6 pt-3">
-        <table class="table table-striped">
-          <colgroup>
-            <col span="1" style="width: 10%;">
-            <col span="1" style="width: 39%;">
-            <col span="1" style="width: 28%;">
-          </colgroup>
-          <thead class="thead-dark">
-            <tr style="line-height: 10px;min-height: 10px;height: 10px;">
-              <th>S.No</th>
-              <th>Ex-Dividend Date</th>
-              <th>Cash Amount</th>
-            </tr>
-          </thead>
-        </table>
-        <div class="card pd-3" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; border-radius: 5px; height:500px;overflow:auto;">         
-          {{ price | safe}}
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-6 pt-3">
-
-          <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; border-radius: 5px;">
-            <div class="card-header"><b><h5>{{ meta.name }} <img src="{{ info.logo_url }}" height="30">  <a href="{{ yapi.website }}" <i class="bi bi-box-arrow-up-right"></i> </a></h5></b>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item"><b>Start Date: </b>{{ meta.startDate }}</li>
-              <li class="list-group-item"><b>Total Employees: </b>{{ info.fullTimeEmployees }}</li>
-              <li class="list-group-item"><b>Exchange Code: </b>{{ meta.exchangeCode }}</li>
-              <li class="list-group-item"><b>Exchange Timezone: </b>{{ info.exchangeTimezoneShortName }}</li>
-              <li class="list-group-item"><b>Description: </b>{{ meta.description }}</li>
-            </ul>
-          </div>
-      </div>
-
+              </div>
+    </div>    
+    <div class="row">
+              <div class="col">
+                        <div class="card text-dark bg-light mb-3">
+                          <div class="card-header">About {{ info2.name }}</div>
+                          <div class="card-body">
+                            <p class="card-text">{{ info2.description }}</p>
+                          </div>
+                        </div>
+      
+              </div>
+    </div>   
 </div>
+
+<script>
+function BuildChart(labels, values, chartTitle) {
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels, 
+            datasets: [{
+                label: chartTitle, 
+                data: values, 
+                fill: true,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true, 
+            maintainAspectRatio: true, 
+            scales: {
+                      xAxis: {                       
+                        reverse: true,
+                      }
+                    }
+            
+        }
+    });
+    return myChart;
+}
+
+
+var table = document.getElementById('example');
+var json = []; 
+var headers = [];
+for (var i = 0; i < table.rows[0].cells.length; i++) {
+    headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+}
+
+for (var i = 1; i < table.rows.length; i++) {
+    var tableRow = table.rows[i];
+    var rowData = {};
+    for (var j = 0; j < tableRow.cells.length; j++) {
+        rowData[headers[j]] = tableRow.cells[j].innerHTML;
+    }
+    json.push(rowData);
+}
+console.log(json);
+
+var labels = json.map(function (e) {
+    return e.exdividenddate.slice(0, 4);
+});
+console.log(labels);
+
+var values = json.map(function (e) {
+    return e.cashamount.slice(1, 5);
+});
+console.log(values);
+var chart = BuildChart(labels, values, "Dividend");
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example').DataTable( {
+        "pagingType": "numbers",
+        "pageLength": 15,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bInfo": false,
+        "bAutoWidth": false
+    } );
+} );
+</script>
+
+
 {% endblock %}

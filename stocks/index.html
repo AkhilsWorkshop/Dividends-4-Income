@@ -2,21 +2,20 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<div class="container">
-    <div class="search-bar">
-        <form action="/stocks/" method="post" class="form">
-            {% csrf_token %}
-            {{ form }}
-            <input id="btn" type="submit" value="Search">       
-        </form>
-    </div>
+<div class="container">   
+        <div class="row align-items-center justify-content-center mt-2">
+                 <div class="col-md-8">
+                            <div class="search"> 
+                                      <form autocomplete="off" action="/stocks/" method="post" class="form-inline">
+                                            <input type="text" class="form-control" placeholder="Search symbols or company name" name="ticker" id="id_ticker" required> 
+                                            <button class="btn btn-dark" id="id_ticker" type="submit">
+                                              <a href="#" class="search-icon"> <i class="bi bi-search" style="color: white;"></i> </a>
+                                            </button>
+                                            {% csrf_token %}                                           
+                                      </form>  
+                            </div>
+                 </div>   
+        </div>       
 </div>
-<script>
-    const btn = document.querySelector('#btn');
-    btn.addEventListener('click', function (e) {
-    e.target.style.background = 'blue';
-});
-
-  </script>
 
 {% endblock %}
