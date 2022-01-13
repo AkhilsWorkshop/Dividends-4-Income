@@ -82,11 +82,15 @@ WSGI_APPLICATION = 'DjangoApp.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ciba',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dds2qgrdf0a92j',
+        'USER': 'umvbujoorymbxs',
+        'PASSWORD': 'f01207d6e6662c0c0aa27c3ea253ef2def7609d37479fd56264aa4c51034d850',
+        'HOST': 'ec2-52-70-205-234.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
+}
 
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
